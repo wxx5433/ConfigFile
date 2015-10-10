@@ -2,33 +2,35 @@
 " My Plugin
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 " My plugin
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/syntastic'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'morhetz/gruvbox'
+Plugin 'scrooloose/syntastic'  " Syntax Highlighting
 Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Valloric/ListToggle'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 Plugin 'ervandew/supertab'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'mbbill/undotree'
 Plugin 'powerline/fonts'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-"Plugin 'edkolev/tmuxline.vim'
-"Plugin 'majutsushi/tagbar'
-Plugin 'neilagabriel/vim-geeknote'
 Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-markdown'
 Plugin 'suan/vim-instant-markdown'
+Plugin 'fatih/vim-go'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -43,6 +45,9 @@ set tabstop=2       " number of visual spaces per TAB
 set softtabstop=2   " number of spaces in tab when editing
 set expandtab       " tabs are spaces
 set lazyredraw          " redraw only when we need to.
+
+set termencoding=utf-8
+set encoding=utf-8
 
 " set auto indent
 set smartindent
@@ -67,7 +72,8 @@ nnoremap <leader><space> :nohlsearch<CR>
 " set color schemes
 syntax enable
 set background=dark
-colorscheme solarized
+"colorscheme solarized
+colorscheme gruvbox
 
 " set backup
 set backup
@@ -83,13 +89,7 @@ map <C-H> <C-W>h
 map <C-L> <C-W>l
 
 " remap escape key
-inoremap jj <Esc>
-"imap <C-e> <End>
-"imap <C-a> <Home>
-"imap <C-n> <Down>
-"imap <C-p> <Up>
-"noremap <C-a> 0
-"noremap <C-e> $
+inoremap jk <Esc>
 
 " Maintain undo history between sessions
 set undofile 
@@ -114,33 +114,8 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 "let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-"function! g:UltiSnips_Complete()
-    "call UltiSnips#ExpandSnippet()
-    "if g:ulti_expand_res == 0
-        "if pumvisible()
-            "return "\<C-n>"
-        "else
-            "call UltiSnips#JumpForwards()
-            "if g:ulti_jump_forwards_res == 0
-               "return "\<TAB>"
-            "endif
-        "endif
-    "endif
-    "return ""
-"endfunction
 
 "au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-"let g:UltiSnipsJumpForwardTrigger="<tab>"
-"let g:UltiSnipsListSnippets="<c-e>"
-"" this mapping Enter key to <C-y> to chose the current highlight item 
-"" and close the selection list, same as other IDEs.
-"" CONFLICT with some plugins like tpope/Endwise
-"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-""""""""""""""""""""""""""""""
-" TagBar
-""""""""""""""""""""""""""""""
-"nmap <C-[> :TagbarToggle<CR>
 
 """"""""""""""""""""""""""""""
 " UndoTree
@@ -171,31 +146,17 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 """"""""""""""""""""""""""""""
 " airline
 """"""""""""""""""""""""""""""
-let g:airline_theme             = 'powerlineish'
+let g:airline_theme = 'powerlineish'
+let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_enable_syntastic  = 1
 " show the status line
 set laststatus=2
-set statusline=%f "tail of the filename
-"set guifont=Sauce\ Code\ Powerline\ Regular\ 10
-"let g:airline_powerline_fonts = 1
+"set statusline=%f "tail of the filename
 
 """"""""""""""""""""""""""""""
 " YouCompleteMe
 """"""""""""""""""""""""""""""
-let g:ycm_global_ycm_extra_conf = '/Users/wxx/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-"let g:ycm_key_list_select_completion=[]
-"let g:ycm_key_list_previous_completion=[]
-"let g:ycm_autoclose_preview_window_after_completion=1
-"let g:syntastic_always_populate_loc_list = 1
-"let g:ycm_server_keep_logfiles = 1
-"nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-""""""""""""""""""""""""""""""
-" Geeknote
-""""""""""""""""""""""""""""""
-noremap <F8> :Geeknote<cr>
-let g:GeeknoteFormat="markdown"
+let g:ycm_global_ycm_extra_conf = '$HOME/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
 """"""""""""""""""""""""""""""
 " Markdown
