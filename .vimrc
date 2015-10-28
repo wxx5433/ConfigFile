@@ -53,7 +53,8 @@ set encoding=utf-8
 set smartindent
 set shiftwidth=2
 
-set number              " show line numbers
+set relativenumber      " show relative line numbers
+set number              " combine these two to use hybrid line numbers.
 set cursorline          " highlight current line
 
 set wildmenu            " visual autocomplete for command menu
@@ -72,7 +73,6 @@ nnoremap <leader><space> :nohlsearch<CR>
 " set color schemes
 syntax enable
 set background=dark
-"colorscheme solarized
 colorscheme gruvbox
 
 " set backup
@@ -163,4 +163,12 @@ let g:ycm_global_ycm_extra_conf = '$HOME/.vim/bundle/YouCompleteMe/third_party/y
 """"""""""""""""""""""""""""""
 let g:vim_markdown_folding_disabled=1  "disable folding
 "autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+""""""""""""""""""""""""""""""
+" Ctags
+""""""""""""""""""""""""""""""
+" ctags optimization
+set autochdir
+set tags=tags;
+
 
